@@ -9,19 +9,13 @@ use App\Http\Requests\UpdateNoteRequest;
 
 class NoteController extends Controller
 {
-    private $data = [[
-    'title' => 'Penting',
-    'content' => 'LOREMLOREM'
-], [
-    'title' => 'Penting',
-    'content' => 'LOREMLOREM'
-]];
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('main');
+        $notes = Note::all();
+        return view('main', ["notes" => $notes]);
     }
 
     /**
@@ -46,7 +40,7 @@ class NoteController extends Controller
         if ($save) {
             return redirect()->route('main');
         }else{
-            
+
         }
     }
 
