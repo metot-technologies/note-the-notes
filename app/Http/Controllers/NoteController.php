@@ -6,6 +6,7 @@ use App\Models\Note;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
@@ -14,7 +15,7 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $notes = Note::all();
+        $notes = Note::where('user_id', Auth::user()->id)->get();
         return view('main', ["notes" => $notes]);
     }
 
@@ -33,6 +34,7 @@ class NoteController extends Controller
     {
         $request->validated();
         $note = new Note([
+            'user_id' => Auth::user()->id,
             'title' => $request->title,
             'content' => $request->content
         ]);
@@ -55,23 +57,47 @@ class NoteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Note $note)
+    public function edit(Note $note, $id)
     {
-        //
+        $note = Note::find($id);
+
+        if ($note->id != Auth::user()->id){
+            abort(403);
+        }
+
+        return view('edit', ['note' => $note]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateNoteRequest $request, Note $note)
+    public function update(UpdateNoteRequest $request, Note $note, $id)
     {
-        //
+        $request->validated();
+
+        $note = Note::find($id);
+
+        if ($note->user_id != Auth::user()->id){
+            abort(403);
+        }
+
+        $update = $note->update([
+            'user_id' => $note->id,
+            'title' => $request->title,
+            'content' => $request->content
+        ]);
+
+        if ($update) {
+            return redirect()->route('main');
+        }else{
+            return redirect()->withErrors(['msg' => 'The Message']);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Note $note)
+    public function destroy(Note $note, $id)
     {
         //
     }
