@@ -11,6 +11,11 @@
                 <div class="p-6 text-gray-900">
                     <a href="{{ route('note.create')}}"
                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create</a>
+                    @error('deleteError')
+                        <ul class='text-sm text-red-600 space-y-1'>
+                            <li>{{ $message }}</li>
+                        </ul>
+                    @enderror
                     <h2 class="mt-5">Note: </h2>
                     @if($notes->first)
                         @foreach ($notes as $note)

@@ -8,6 +8,11 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                @error('msg')
+                    <ul class='text-sm text-red-600 space-y-1'>
+                        <li>{{ $message }}</li>
+                    </ul>
+                @enderror
                 <form class="w-full max-w-sm" method="POST" action="{{ route('note.update', $note['id']) }}">
                     @csrf
                     @method('patch')

@@ -42,7 +42,7 @@ class NoteController extends Controller
         if ($save) {
             return redirect()->route('main');
         }else{
-
+            return redirect()->back()->withErrors(['msg' => 'Failed saving note, Try again!']);
         }
     }
 
@@ -61,6 +61,10 @@ class NoteController extends Controller
     {
         $note = Note::find($id);
 
+        if (!$note){
+            abort(404);
+        }
+
         if ($note->user_id != Auth::user()->id){
             abort(403);
         }
@@ -77,6 +81,10 @@ class NoteController extends Controller
 
         $note = Note::find($id);
 
+        if (!$note){
+            abort(404);
+        }
+
         if ($note->user_id != Auth::user()->id){
             abort(403);
         }
@@ -90,7 +98,7 @@ class NoteController extends Controller
         if ($update) {
             return redirect()->route('main');
         }else{
-            return redirect()->withErrors(['msg' => 'The Message']);
+            return redirect()->back()->withErrors(['msg' => 'Failed updating note, Try again!']);
         }
     }
 
@@ -100,6 +108,9 @@ class NoteController extends Controller
     public function destroy(Note $note, $id)
     {
         $note = Note::find($id);
+        if (!$note){
+            abort(404);
+        }
         if ($note->user_id != Auth::user()->id){
             abort(403);
         }
@@ -107,7 +118,7 @@ class NoteController extends Controller
         if ($delete) {
             return redirect()->route('main');
         }else{
-            return redirect()->withErrors(['msg' => 'The Message']);
+            return redirect()->back()->withErrors(['deleteError' => 'Failed deleting note, Try again!']);
         }
     }
 }
