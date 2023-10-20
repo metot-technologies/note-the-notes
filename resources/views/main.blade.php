@@ -16,7 +16,11 @@
                         @foreach ($notes as $note)
                             <p><b>Title:</b> {{$note['title']}}</p>
                             <a href="{{ route('note.edit', $note['id']) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Detail</a>
-                            <a href="{{ route('note.destroy', $note['id']) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
+                            <form action="{{route('note.destroy', $note['id'])}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit">Delete</button>
+                            </form>
                             <p>-------------------</p>
                         @endforeach
                     @endif

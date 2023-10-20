@@ -21,7 +21,7 @@ Route::controller(NoteController::Class)->middleware(['auth', 'verified'])->grou
     Route::post('/create', 'store')->name('note.store');
     Route::get('/edit/{id}', 'edit')->name('note.edit');
     Route::patch('/edit/{id}', 'update')->name('note.update');
-    Route::delete('/delete/{id}', 'destroy');
+    Route::delete('/delete/{id}', 'destroy')->name('note.destroy');
 });
 
 Route::prefix('/profile')->controller(ProfileController::class)->middleware('auth')->group(function () {
