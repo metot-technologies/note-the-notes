@@ -61,7 +61,7 @@ class NoteController extends Controller
     {
         $note = Note::find($id);
 
-        if ($note->id != Auth::user()->id){
+        if ($note->user_id != Auth::user()->id){
             abort(403);
         }
 
@@ -82,7 +82,7 @@ class NoteController extends Controller
         }
 
         $update = $note->update([
-            'user_id' => $note->id,
+            'user_id' => $note->user_id,
             'title' => $request->title,
             'content' => $request->content
         ]);
