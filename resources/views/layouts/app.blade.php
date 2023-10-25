@@ -14,12 +14,12 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100 flex flex-col">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow bg-gradient-to-r from-[#003764] to-[#1DCAD3]">
+                <header class="shadow bg-gradient-to-r from-[#003764] to-[#1DCAD3]">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -30,6 +30,15 @@
             <main>
                 {{ $slot }}
             </main>
+
+            <!-- Footer -->
+            @if (isset($footer))
+                <footer class="shadow bg-gradient-to-r from-[#003764] to-[#1DCAD3] mt-auto">
+                    <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+                        {{ $footer }}
+                    </div>
+                </footer>
+            @endif
         </div>
     </body>
 </html>
