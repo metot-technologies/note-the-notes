@@ -17,22 +17,27 @@
                         </ul>
                     @enderror
                     <h2 class="mt-10 mb-5 text-xl font-bold font-sans">Note(s): </h2>
-                    
+
                     @if($notes->first)
                     <div class="grid grid-cols-4 gap-4">
-                        
+
                             @foreach ($notes as $note)
                             <div class="p-6 border-2 rounded-lg shadow-md w-[100%]">
                                 <p class="text-xl line-clamp-3"><b>{{$note['title']}}</b></p>
                                 <div class="mt-10 flex gap-x-2">
                                     <a href="{{ route('note.edit', $note['id']) }}" class="bg-blue-400 font-bold rounded text-white p-[2px_8px] hover:underline ">Detail</a>
+                                    <form action="{{route('archive.archive', $note['id'])}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="bg-amber-300 font-bold rounded text-white p-[2px_8px] hover:underline ">Archive</button>
+                                    </form>
                                     <form action="{{route('note.destroy', $note['id'])}}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="bg-rose-500 font-bold rounded text-white p-[2px_8px] hover:underline ">Delete</button>
                                     </form>
                                 </div>
-                            </div>    
+                            </div>
                             @endforeach
                     </div>
                     @endif

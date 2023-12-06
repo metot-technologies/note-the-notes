@@ -114,7 +114,7 @@ class NoteController extends Controller
         if ($note->user_id != Auth::user()->id){
             abort(403);
         }
-        $delete = $note->delete();
+        $delete = $note->forceDelete();
         if ($delete) {
             return redirect()->route('main');
         }else{

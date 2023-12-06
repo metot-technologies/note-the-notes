@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('main')" :active="request()->routeIs('main')">
                         {{ __('Home') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('archive.main')" :active="request()->routeIs('archive.main')">
+                        {{ __('Archive') }}
+                    </x-nav-link>
                 </div>
             </div>
 
